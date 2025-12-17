@@ -1,0 +1,197 @@
+% Homework template for Inference and Information
+% UPDATE: September 26, 2017 by Xiangxiang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{siunitx}
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不显示了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+% \usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage{color}
+\usepackage{iidef}
+\newif\ifans\anstrue
+\newcommand{\myspace}[1]{\par\vspace{#1\baselineskip}}
+
+\thecourseinstitute{\textnormal{通信与网络}}
+\theterm{确定}
+\begin{document}
+
+
+
+\vspace{3mm}
+\centerline{\textbf{\Large{实验3$\quad$载波传输实验报告}}}
+
+\setcounter{section}{4}
+
+\section{实验内容}
+\subsection{BPSK调制}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 给出前10个符号的发送波形和接收波形图。如图1和图2所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_1_1.png}
+        \caption{前10个符号的发送波形图(BPSK)}
+        \label{fig:BPSK1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_1_2.png}
+        \caption{前10个符号的接收波形图(BPSK)}
+        \label{fig:BPSK1}
+    \end{figure}
+    \item 画出前5个符号的匹配滤波输出波形（采样前），并在图中明确标出最佳采样时刻。如图3所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_2.png}
+        \caption{前5个符号的匹配滤波输出波形(BPSK)}
+        \label{fig:BPSK2}
+    \end{figure}
+	\item 分别比较误符号率和误比特率的理论值与仿真值。如图4和图5所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_3_1.png}
+        \caption{误符号率的理论值与仿真值(BPSK)}
+        \label{fig:BPSK3_1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_3_2.png}
+        \caption{误比特率的理论值与仿真值(BPSK)}
+        \label{fig:BPSK3_2}
+    \end{figure}
+	\item 分析误码率随采样偏差变化的规律。如图6所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_4.png}
+        \caption{误码率随采样偏差变化的规律(BPSK)}
+        \label{fig:BPSK4}
+    \end{figure}
+	\item 比较画出的功率谱密度与理论功率谱密度。如图7所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/1_5.png}
+        \caption{功率谱密度与理论功率谱密度(BPSK)}
+        \label{fig:BPSK5}
+    \end{figure}
+
+
+\end{enumerate}
+
+
+\subsection{4PAM调制}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 给出前10个符号的发送波形和接收波形图。如图8和图9所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_1_1.png}
+        \caption{前10个符号的发送波形图(4PAM)}
+        \label{fig:4PAM1_1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_1_2.png}
+        \caption{前10个符号的接收波形图(4PAM)}
+        \label{fig:4PAM1_2}
+    \end{figure}
+    \item 画出前5个符号的匹配滤波输出波形（采样前），并在图中明确标出最佳采样时刻。如图10所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_2.png}
+        \caption{前5个符号的匹配滤波输出波形(4PAM)}
+        \label{fig:4PAM2}
+    \end{figure}
+	\item 分别比较误符号率和误比特率的理论值与仿真值。如图11和图12所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_3_1.png}
+        \caption{误符号率的理论值与仿真值(4PAM)}
+        \label{fig:4PAM3_1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_3_2.png}
+        \caption{误比特率的理论值与仿真值(4PAM)}
+        \label{fig:4PAM3_2}
+    \end{figure}
+	\item 分析误码率随采样偏差变化的规律。如图13所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_4.png}
+        \caption{误码率随采样偏差变化的规律(4PAM)}
+        \label{fig:4PAM4}
+    \end{figure}
+	\item 比较画出的功率谱密度与理论功率谱密度。如图14所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.45]{pics/2_5.png}
+        \caption{功率谱密度与理论功率谱密度(4PAM)}
+        \label{fig:4PAM5}
+    \end{figure}
+
+\end{enumerate}
+
+\subsection{对比BPSK和4PAM的误码曲线}
+\begin{enumerate}[label=(\arabic*)]
+    \item 同样的$\frac{E_b}{N_0}$，BPSK的误码率明显优于4PAM。\par
+    这是因为，BPSK每个符号只携带1 bit，符号距离大；4PAM 每个符号携带2 bit，但其4个电平之间距离较小。在相同比特能量$E_b$下：
+    \[d_{min,BPSK}=d_{min,4PAM}=2A\]
+    但4PAM的归一化幅度为$-3A,-A,A,3A$，等效符号距离较小，因此抗噪能力更差。\par
+    这与调制理论一致：多电平调制、频谱效率提高，但抗噪性能下降。
+
+    \item SER（误符号率）差距比BER更明显。\par
+    由于4PAM每符号携带 2bit：1 bit错误$\neq$1 symbol错误，Gray coding只能减少bit-error，但无法改变symbol-error。
+
+    \item 定时偏差对4PAM的影响更严重。\par
+    因为BPSK只有两个电平，判决门限简单（0 点）。\par
+    但4PAM有四个电平，判决门限有多个点（-2A, 0, 2A），因此采样偏差越大，接收波形畸变越明显，误判概率显著增加，4PAM的“误码率随采样偏差变化曲线”更陡。
+\end{enumerate}
+
+\section{实验总结、体会和建议}
+本次实验通过搭建 BPSK 与 4PAM 的完整通信链路，让我更直观地理解了数字调制系统的实现过程和性能差异。实验结果显示，BPSK 由于符号间距大、判决简单，误码性能明显优于 4PAM，而 4PAM 虽然频谱效率更高，但对噪声和采样偏差更敏感，误码性能下降更快。这些现象与理论完全一致，也让我体会到调制阶数提高所带来的性能权衡。此外，匹配滤波前后信号的对比帮助我理解了匹配滤波提升信噪比的作用。通过本次实验，我对调制方式选择、同步精度要求以及噪声建模等关键问题有了更清晰的认识。
+
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:

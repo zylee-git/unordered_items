@@ -1,0 +1,355 @@
+% Homework template for Inference and Information
+% UPDATE: November 16, 2025 by Li Zhengyang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{siunitx}
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不显示了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+% \usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage{color}
+\usepackage{iidef}
+\newif\ifans\anstrue
+\newcommand{\myspace}[1]{\par\vspace{#1\baselineskip}}
+
+\thecourseinstitute{\textnormal{通信与网络}}
+\theterm{确定}
+\begin{document}
+
+
+
+\vspace{3mm}
+\centerline{\textbf{\Large{实验2$\quad$基带传输实验报告}}}
+
+\centerline{\text{姓名：李正扬\quad 学号：2023010645\quad 日期：2025年11月16日}}
+
+\setcounter{section}{4}
+
+\section{实验内容}
+\subsection{实电平信道传输}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 在合适的信噪比范围下生成对应的高斯噪声，与信源符号相加，得到接收信号。高斯噪声的方差可以由平均符号能量和信噪比计算得到。其中，平均符号能量有两种取法，分别是：
+    \begin{enumerate}
+        \item 随机符号序列的平均能量；
+        \item 星座图的理论符号能量。
+    \end{enumerate}
+    请选择其中一种，并说明原因。\par
+    在实验中，选择星座图的理论符号能量作为平均符号能量。这是因为理论符号能量基于所有星座点等概率出现的理想情况，能够提供一个固定且一致的能量基准，从而确保信噪比的定义在不同仿真和不同数据序列下保持统一。如果使用实际传输电平序列的平均能量，会因发送序列的随机性和长度有限性导致能量波动，使得信噪比的实际含义不确定，不利于公平的性能比较和理论分析验证。因此，基于理论星座能量添加噪声更能保证仿真结果的可靠性和可比性。
+    \item 比较原始比特序列和解调后的比特序列。分别统计不同信噪比、不同仿真次数 N 下的符号差错个数和比特差错个数。请自行选取有代表性的仿真次数$N$和信噪比SNR。\par
+    见表\ref{tab:sym1}、表\ref{tab:bit1}、表\ref{tab:sym2}和表\ref{tab:bit2}.
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{符号差错个数统计，$M=2$}
+        \vspace{10pt}
+        \label{tab:sym1}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+             & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            2 & 1029 & 10441 & 103820 \\
+            \hline
+            5 & 352 & 3610 & 37730 \\
+            \hline
+            8 & 57 & 613 & 6041 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{bit差错个数统计，$M=2$}
+        \vspace{10pt}
+        \label{tab:bit1}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+             & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            2 & 1029 & 10441 & 103820 \\
+            \hline
+            5 & 352 & 3610 & 37730 \\
+            \hline
+            8 & 57 & 613 & 6041 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{符号差错个数统计，$M=4$}
+        \vspace{10pt}
+        \label{tab:sym2}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+            & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            8 & 961 & 9826 & 97924 \\
+            \hline
+            11 & 436 & 4204 & 42577 \\
+            \hline
+            14 & 94 & 960 & 9289 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{bit差错个数统计，$M=4$}
+        \vspace{10pt}
+        \label{tab:bit2}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+            & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            8 & 960 & 9810 & 97720 \\
+            \hline
+            11 & 436 & 4204 & 42577 \\
+            \hline
+            14 & 94 & 960 & 9289 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+    \item 在合适的仿真次数下，计算误符号率$P_s$和误比特率$P_b$，画出$P_s$和$P_b$随信噪比的变化曲线。一般情况下，当独立的错误事件数量达到100量级时，计算得到的误码率就比较稳定了。仿真曲线涉及的SNR范围要包括误码率从$10^{-3}$到$10^{-1}$。\par
+    仿真时随机生成的bit数为$5\times 10^5$，仿真次数为$\frac{5\times 10^5}{\log_2{M}}$. 仿真时选取的信噪比范围为-5dB到20dB，步长为1dB. 相关曲线如图\ref{fig:SER1}和\ref{fig:BER1}所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{pics/real-1.jpg}
+        \caption{SER-SNR}
+        \label{fig:SER1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{pics/real-2.jpg}
+        \caption{BER-SNR}
+        \label{fig:BER1}
+    \end{figure}
+    \item 同时画出理论值对应的曲线，观察仿真结果是否与理论值相符，分析原因。\par
+    \begin{enumerate}
+        \item 当仿真次数过少时，仿真与公式结果不一致，原因是仿真次数过少时仿真结果的“相对涨落”较大，随机误差相对较明显。
+        \item 当$M=2$且信噪比较小时，BER与公式结果不一致，原因是公式推导时认为每个符号错误只导致1bit错误，但是当噪声过大时一个符号错误可以导致对应的多个bit都有错误，且该可能性的概率变得不可忽略。
+    \end{enumerate}
+\end{enumerate}
+
+
+\subsection{复电平信道传输}
+\begin{enumerate}[label=(\arabic*)]
+    \item 对于$M=16$的 QAM 调制情况，请选择两个合适的信噪比条件画出接收信号的复电平星座图\par
+    选取SNR分别为15dB和20dB，画出的星座图如图\ref{fig:STAR1}和图\ref{fig:STAR2}所示。
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{pics/star-1.jpg}
+        \caption{星座图, SNR=15dB}
+        \label{fig:STAR1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{pics/star-2.jpg}
+        \caption{星座图, SNR=20dB}
+        \label{fig:STAR2}
+    \end{figure}
+    \item 比较发送信号和接收信号。分别统计不同信噪比、不同仿真次数$N$下的符号差错个数和bit差错个数。\par
+    见表\ref{tab:sym3}、表\ref{tab:bit3}、表\ref{tab:sym4}和表\ref{tab:bit4}.
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{符号差错个数统计，$M=4$}
+        \vspace{10pt}
+        \label{tab:sym3}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+             & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            7 & 589 & 5670 & 56189 \\
+            \hline
+            10 & 116 & 1343 & 12531 \\
+            \hline
+            13 & 11 & 77 & 751 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{bit差错个数统计，$M=4$}
+        \vspace{10pt}
+        \label{tab:bit3}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+             & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            7 & 581 & 5505 & 54553 \\
+            \hline
+            10 & 116 & 1330 & 12458 \\
+            \hline
+            13 & 11 & 77 & 751 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{符号差错个数统计，$M=16$}
+        \vspace{10pt}
+        \label{tab:sym4}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+            & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            13 & 592 & 5956 & 59008 \\
+            \hline
+            16 & 178 & 1713 & 17172 \\
+            \hline
+            19 & 21 & 170 & 1804 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[h]
+        \setlength{\tabcolsep}{20pt}
+        \centering
+        \caption{bit差错个数统计，$M=16$}
+        \vspace{10pt}
+        \label{tab:bit4}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{SNR} & \multicolumn{3}{c|}{仿真次数$N$}\\
+            \cline{2-4}
+            & $10^4$ & $10^5$ & $10^6$ \\
+            \hline
+            13 & 559 & 5599 & 55513 \\
+            \hline
+            16 & 176 & 1680 & 16894 \\
+            \hline
+            19& 21 & 170 & 1794 \\
+            \hline
+        \end{tabular}
+    \end{table*}
+    \item 在合适的仿真次数下，计算误符号率$P_s$和误比特率$P_b$，画出$P_s$和$P_b$随信噪比的变化曲线。一般情况下，当独立的错误事件数量达到100量级时，计算得到的误码率就比较稳定了。仿真曲线涉及的SNR范围要包括误码率从$10^{-3}$到$10^{-1}$。\par
+    仿真时随机生成的bit数为$5\times 10^5$，仿真次数为$\frac{5\times 10^5}{\log_2{M}}$. 仿真时选取的信噪比范围为0dB到25dB，步长为1dB. 相关曲线如图\ref{fig:SER2}和\ref{fig:BER2}所示。
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/complex-2.jpg}
+        \caption{SER-SNR}
+        \label{fig:SER2}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/complex-1.jpg}
+        \caption{BER-SNR}
+        \label{fig:BER2}
+    \end{figure}
+    \item 同时画出理论值对应的曲线，观察仿真结果是否与理论值相符，分析原因。\par
+    \begin{enumerate}
+        \item 当仿真次数过少时，仿真与公式结果不一致，原因是仿真次数过少时仿真结果的“相对涨落”较大，随机误差相对较明显。
+        \item 当信噪比较小时，BER与公式结果不一致，原因是公式推导时认为每个符号错误只导致1bit错误，但是当噪声过大时一个符号错误可以导致对应的多个bit都有错误，且该可能性的概率变得不可忽略。
+        \item 如果在理论计算时忽略了$Q^2(x)$项，则当信噪比较小时SER与BER的仿真结果均与公式结果不一致，原因是信噪比较小时$\frac{A}{\sigma}$较小，$Q^2(x)$项较大，不可忽略。
+    \end{enumerate}
+\end{enumerate}
+
+
+\subsection{波形信道传输}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 对于两个不同的采样时间间隔$\Delta t$，选择合适的信噪比画出接收端有噪声波形在一个符号持续时间内的波形，即对于时间长度为$T$的符号波形$y_t$的$\frac{T}{\Delta t}$个采样电平。结合观察说明为什么对接收波形直接采样判决不妥。\par
+    相关曲线如图\ref{fig:waveform1}和图\ref{fig:waveform2}所示。\par
+    对接收波形直接采样判决不妥，因为噪声会使得采样时刻的信号电平随机波动，当采样点恰好在符号跳变时刻附近或噪声峰值较大时，容易引起判决错误。尤其在高信噪比下，虽然波形整体轮廓可辨，但采样点的瞬时值仍可能因噪声而跨越判决门限。因此，直接采样判决没有充分利用信号的全部能量及波形连续性，无法有效抑制噪声影响，需要通过匹配滤波或相关接收等优化采样方式，在保证采样点信噪比最大的基础上进行判决，才能提升系统性能。
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/waveform-1.jpg}
+        \caption{接收端波形, $\Delta t=0.1$}
+        \label{fig:waveform1}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/waveform-2.jpg}
+        \caption{接收端波形, $\Delta t=0.01$}
+        \label{fig:waveform2}
+    \end{figure}\par
+    \item 分别画出$\Delta t = 0.1$和$\Delta t = 0.01$时，等效信噪比随波形持续时间T的变化曲线。\par
+    相关曲线如图\ref{fig:waveform3}所示。\par
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/waveform-3.jpg}
+        \caption{SNR-T}
+        \label{fig:waveform3}
+    \end{figure}
+    \item 分别画出$\Delta t = 0.1$和$\Delta t = 0.01$时，误符号率随信噪比的变化曲线。同时画出理论值对应的曲线，观察仿真结果是否与理论值相符，以及两种$\Delta t$下结果的区别，分析原因。\par
+    相关曲线如图\ref{fig:waveform3}所示。\par
+    当$\Delta t = 0.01$时，误符号率曲线与理论值吻合得更好，尤其是在中高信噪比区域；而$\Delta t = 0.1$时的性能曲线与理论值存在较为明显的偏差，在中高信噪比下更明显。这种差异主要源于采样间隔对匹配滤波器性能的影响：较小的$\Delta t(0.01)$意味着每个符号周期内有更多的采样点，能够更精确地描述发送波形和实现匹配滤波，从而更好地逼近理论上的最佳接收性能。相反，较大的$\Delta t(0.1)$导致波形描述粗糙化，匹配滤波器的实现偏离理想情况，无法充分利用信号的全部能量来抑制噪声，因此误码性能下降。\par
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pics/waveform-4.jpg}
+        \caption{SER-SNR}
+        \label{fig:waveform4}
+    \end{figure}\par
+    \item 为什么随着持续时间$T$的提升，等效信噪比增加且误码率降低？
+    在本实验条件下，信号功率正比于$T^2$，而噪声功率正比于$T$，所以等效信噪比随$T$的提升而增加，因而误码率随$T$提升而减少。
+\end{enumerate}
+
+\section{实验总结、体会和建议}
+在本次实验中，我对电平信道和波形信道传输进行了仿真，并计算了不同参数选取下的误符号率和误比特率。通过本次实验，我深化了对电平信道和波形信道
+传输的概念，过程以及相关参数和性能指标的认识，并深化了对匹配滤波方法的了解与认识，了解到了基带传输的误比特率等指标与相关参数的关系。
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:

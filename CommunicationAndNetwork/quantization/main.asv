@@ -1,0 +1,30 @@
+%% 压缩量化实验主程序
+clear all; close all; clc;
+
+fprintf('=== 通信与网络实验：压缩量化实验 ===\n\n');
+
+% 选择实验部分
+while true
+    fprintf('请选择要运行的实验部分：\n');
+    fprintf('1 - 均匀分布下的均匀量化\n');
+    fprintf('2 - 基于律压扩的非均匀量化\n');
+    fprintf('3 - 运行所有实验\n');
+    choice = input('请输入选择 (1/2/3): ');
+    
+    if ismember(choice, [1,2,3])
+        break;
+    else
+        fprintf('输入无效，请重新输入！\n');
+    end
+end
+
+% 执行选择的实验
+if choice == 1 || choice == 3
+    uniform_quantization_experiment();
+end
+
+if choice == 2 || choice == 3
+    nonuniform_quantization_experiment();
+end
+
+fprintf('\n实验完成！\n');

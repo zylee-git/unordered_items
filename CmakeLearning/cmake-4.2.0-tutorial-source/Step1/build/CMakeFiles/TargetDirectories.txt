@@ -1,0 +1,8 @@
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/CMakeFiles/edit_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/CMakeFiles/rebuild_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/Tutorial/CMakeFiles/Tutorial.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/Tutorial/CMakeFiles/edit_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/Tutorial/CMakeFiles/rebuild_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/MathFunctions/CMakeFiles/MathFunctions.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/MathFunctions/CMakeFiles/edit_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/MathFunctions/CMakeFiles/rebuild_cache.dir

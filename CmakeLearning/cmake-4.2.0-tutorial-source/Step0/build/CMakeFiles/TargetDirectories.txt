@@ -1,0 +1,3 @@
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step0/build/CMakeFiles/hello.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step0/build/CMakeFiles/edit_cache.dir
+C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step0/build/CMakeFiles/rebuild_cache.dir

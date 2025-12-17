@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/Tutorial",
+  "command": "C:\\programs\\profession\\compilers\\mingw64\\bin\\g++.exe  @CMakeFiles/Tutorial.dir/includes_CXX.rsp -g -o CMakeFiles\\Tutorial.dir\\Tutorial.cxx.obj -c C:\\Users\\22411\\Documents\\codes\\Projects\\CmakeLearning\\cmake-4.2.0-tutorial-source\\Step1\\Tutorial\\Tutorial.cxx",
+  "file": "C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/Tutorial/Tutorial.cxx",
+  "output": "Tutorial/CMakeFiles/Tutorial.dir/Tutorial.cxx.obj"
+},
+{
+  "directory": "C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/build/MathFunctions",
+  "command": "C:\\programs\\profession\\compilers\\mingw64\\bin\\g++.exe  @CMakeFiles/MathFunctions.dir/includes_CXX.rsp -g -o CMakeFiles\\MathFunctions.dir\\MathFunctions.cxx.obj -c C:\\Users\\22411\\Documents\\codes\\Projects\\CmakeLearning\\cmake-4.2.0-tutorial-source\\Step1\\MathFunctions\\MathFunctions.cxx",
+  "file": "C:/Users/22411/Documents/codes/Projects/CmakeLearning/cmake-4.2.0-tutorial-source/Step1/MathFunctions/MathFunctions.cxx",
+  "output": "MathFunctions/CMakeFiles/MathFunctions.dir/MathFunctions.cxx.obj"
+}
+]
