@@ -5,7 +5,7 @@ load('topology_general.mat');
 % 获取节点数量
 N = max([s; t], [], 'all');
 % 选择
-viewNode = 1; % TODO 1<=viewNode<=N,选中某一路由节点，观察该路由节点的最小生成树随链路状态传播而变化的情况
+viewNode = 7; % TODO 1<=viewNode<=N,选中某一路由节点，观察该路由节点的最小生成树随链路状态传播而变化的情况
 % 路由节点编号 "a"->1 "b"->2, ... ; 共N个编号
 node = 1:N;
 % 获取连边数量

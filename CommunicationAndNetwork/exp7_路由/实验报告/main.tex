@@ -1,0 +1,457 @@
+% Homework template for Inference and Information
+% UPDATE: January 3, 2026 by 李正扬
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{siunitx}
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不显示了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+% \usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage{color}
+\usepackage{iidef}
+\newif\ifans\anstrue
+\newcommand{\myspace}[1]{\par\vspace{#1\baselineskip}}
+
+\thecourseinstitute{\textnormal{通信与网络}}
+\theterm{确定}
+\begin{document}
+
+
+
+\vspace{3mm}
+\centerline{\textbf{\Large{实验7$\quad$路由实验报告}}}
+
+\setcounter{section}{4}
+
+\section{实验内容}
+\subsection{网络拓扑}
+\subsection{RIP协议与DV算法仿真实验}
+\begin{enumerate}
+    \item 打开实验文件“exp7 1.m”，阅读实验代码并运行实验文件，记录Matlab命令行输出的不同迭代轮次下的距离矩阵和下一跳矩阵。选择感兴趣某一次迭代，结合代码对Bellman-Ford算法的实现，对距离矩阵和下一跳矩阵的更新给出解释。\par
+    --------------- LOOP START --------------\par 
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  5  &  1 & \infty & \infty & \infty \\
+            2  &  0  &  3  &  2 & \infty & \infty & \infty \\
+            5  &  3  &  0  &  3  &  1  &  5 & \infty \\
+            1  &  2  &  3  &  0  &  1 & \infty & \infty \\
+          \infty & \infty  &  1  &  1  &  0  &  2 & \infty \\
+          \infty & \infty  &  5 & \infty  &  2  &  0  &  1 \\
+          \infty & \infty & \infty & \infty & \infty  &  1  &  0 \\        
+        \end{bmatrix}
+    \end{equation}\par
+    下一跳矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  4  &  0  &  0  &  0 \\
+            1  &  0  &  3  &  4  &  0  &  0  &  0 \\
+            1  &  2  &  0  &  4  &  5  &  6  &  0 \\
+            1  &  2  &  3  &  0  &  5  &  0  &  0 \\ 
+            0  &  0  &  3  &  4  &  0  &  6  &  0 \\
+            0  &  0  &  3  &  0  &  5  &  0  &  7 \\
+            0  &  0  &  0  &  0  &  0  &  6  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 1 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  1  &  2  &  9 & \infty \\
+            2  &  0  &  3  &  2  &  3  &  8 & \infty \\
+            3  &  3  &  0  &  2  &  1  &  3  &  6 \\
+            1  &  2  &  2  &  0  &  1  &  3 & \infty \\
+            2  &  3  &  1  &  1  &  0  &  2  &  3 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  1 \\
+            5  &  6  &  4  &  4  &  3  &  1  &  0 \\
+        \end{bmatrix}
+    \end{equation}\par
+    下一跳矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  0 \\
+            1  &  0  &  3  &  4  &  4  &  3  &  0 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  6 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  0 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  6 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  7 \\
+            6  &  6  &  6  &  6  &  6  &  6  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 2 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  &  10 \\
+            2  &  0  &  3  &  2  &  3  &  5  &  9 \\
+            3  &  3  &  0  &  2  &  1  &  3  &  4 \\
+            1  &  2  &  2  &  0  &  1  &  3  &  4 \\
+            2  &  3  &  1  &  1  &  0  &  2  &  3 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  1 \\
+            5  &  6  &  4  &  4  &  3  &  1  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    下一跳矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  3 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  6 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  7 \\
+            6  &  6  &  6  &  6  &  6  &  6  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 3 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  &  5 \\
+            2  &  0  &  3  &  2  &  3  &  5  &  6 \\
+            3  &  3  &  0  &  2  &  1  &  3  &  4 \\
+            1  &  2  &  2  &  0  &  1  &  3  &  4 \\
+            2  &  3  &  1  &  1  &  0  &  2  &  3 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  1 \\
+            5  &  6  &  4  &  4  &  3  &  1  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    下一跳矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  6 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  7 \\
+            6  &  6  &  6  &  6  &  6  &  6  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    此时迭代收敛\par
+    以LOOP 2迭代中的a节点为例，a节点与b,c,d三个节点相邻，代价分别为2,5,1, a,b,c,d节点的距离矢量分别为
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  1  &  2  &  9 & \infty \\    
+        \end{bmatrix}
+    \end{equation} 
+    \begin{equation}
+        \begin{bmatrix}
+            2  &  0  &  3  &  2  &  3  &  8 & \infty \\    
+        \end{bmatrix}
+    \end{equation}
+    \begin{equation}
+        \begin{bmatrix}
+            3  &  3  &  0  &  2  &  1  &  3  &  6 \\    
+        \end{bmatrix}
+    \end{equation}
+    \begin{equation}
+        \begin{bmatrix}
+            1  &  2  &  2  &  0  &  1  &  3 & \infty \\    
+        \end{bmatrix}
+    \end{equation}\par
+    a向b,c,d广播自己的距离矢量，此次b,c,d的距离矢量未更新；\par
+    b向a,c,d广播自己的距离矢量，四个节点的距离矢量未更新；\par
+    c向a,b,d,f广播自己的距离矢量，a距离矢量的后两分量更新为9,11; b距离矢量的后两分量更新为6,9; d距离矢量最后1个分量更新为8(暂不考虑f的更新); \par
+    d再广播距离矢量，a的距离矢量更新为
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  2+1  &  1  &  2  &  3+1  &  9+1 \\ 
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矢量的第3,6,7分量更新为4. 
+    \item 打开实验文件“exp7 2.m”，阅读实验代码并运行实验文件。在本次实验中，我们在路由表收敛后，将路由节点6和7之间的链路断开（链路代价无穷大）。运行实验文件，观察matlab命令行输出的不同迭代轮次下的距离矩阵和下一跳矩阵。基于命令行的输出，观察并记录路由重新收敛的过程。结合D-V协议，分析该路由重新收敛的过程中的问题。\par
+    记录如下:\par
+    --------------- LOOP START --------------\par
+    距离矢量矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2   &  3   &  1   &  2   &  4  &  5 \\ 
+            2  &  0   &  3   &  2   &  3    & 5  &  6 \\
+            3   &  3   &  0 &    2   &  1  &   3  &  4 \\
+            1   &  2   &  2  &   0   &  1   &  3  &  4 \\
+            2   & 3   &  1   &  1   &  0   &  2  &  3 \\
+            4   &  5   &  3   &  3   &  2   &  0 & \infty \\
+          \infty  & \infty &  \infty  & \infty  & \infty  & \infty  &  0 \\       
+        \end{bmatrix}
+    \end{equation}
+    下一跳矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  6 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  0 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}
+    ---------------- LOOP 1 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  &  5 \\
+            2  &  0  &  3  &  2  &  3  &  5  &  6 \\
+            3  &  3  &  0  &  2  &  1  &  3  &  4 \\
+            1  &  2  &  2  &  0  &  1  &  3  &  4 \\
+            2  &  3  &  1  &  1  &  0  &  2  &  7 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  5 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  6 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 2 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  &  5 \\
+            2  &  0  &  3  &  2  &  3  &  5  &  6 \\
+            3  &  3  &  0  &  2  &  1  &  3  &  6 \\
+            1  &  2  &  2  &  0  &  1  &  3  &  6 \\
+            2  &  3  &  1  &  1  &  0  &  2  &  5 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  7 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  3 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 3 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  &  7 \\
+            2  &  0  &  3  &  2  &  3  &  5  &  8 \\
+            3  &  3  &  0  &  2  &  1  &  3  &  8 \\
+            1  &  2  &  2  &  0  &  1  &  3  &  8 \\
+            2  &  3  &  1  &  1  &  0  &  2  &  7 \\
+            4  &  5  &  3  &  3  &  2  &  0  &  9 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  3 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    \dots\dots\par
+    ---------------- LOOP 14 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  & 29 \\
+            2  &  0  &  3  &  2  &  3  &  5  & 30 \\
+            3  &  3  &  0  &  2  &  1  &  3  & 30 \\
+            1  &  2  &  2  &  0  &  1  &  3  & 30 \\
+            2  &  3  &  1  &  1  &  0  &  2  & 29 \\
+            4  &  5  &  3  &  3  &  2  &  0  & 31 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\        
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  3 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 15 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  & 31 \\
+            2  &  0  &  3  &  2  &  3  &  5  & 32 \\
+            3  &  3  &  0  &  2  &  1  &  3  & 32 \\
+            1  &  2  &  2  &  0  &  1  &  3  & 32 \\
+            2  &  3  &  1  &  1  &  0  &  2  & 31 \\
+            4  &  5  &  3  &  3  &  2  &  0  & 33 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\        
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  3 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    ---------------- LOOP 16 ----------------\par
+    距离矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  3  &  1  &  2  &  4  & 33 \\
+            2  &  0  &  3  &  2  &  3  &  5  & 34 \\
+            3  &  3  &  0  &  2  &  1  &  3  & 34 \\
+            1  &  2  &  2  &  0  &  1  &  3  & 34 \\
+            2  &  3  &  1  &  1  &  0  &  2  & 33 \\
+            4  &  5  &  3  &  3  &  2  &  0  & 35 \\
+          \infty  &\infty  &\infty  &\infty  &\infty  &\infty  &  0 \\        
+        \end{bmatrix}
+    \end{equation}\par
+    下一步矩阵
+    \begin{equation}
+        \begin{bmatrix}
+            0  &  2  &  4  &  4  &  4  &  4  &  4 \\
+            1  &  0  &  3  &  4  &  4  &  4  &  4 \\
+            5  &  2  &  0  &  5  &  5  &  5  &  5 \\
+            1  &  2  &  5  &  0  &  5  &  5  &  5 \\
+            4  &  4  &  3  &  4  &  0  &  6  &  3 \\
+            5  &  5  &  5  &  5  &  5  &  0  &  5 \\
+            0  &  0  &  0  &  0  &  0  &  0  &  0 \\       
+        \end{bmatrix}
+    \end{equation}\par
+    发现在迭代过程中，距离矩阵的最后一列的值不断增加，无法收敛；\par
+    且节点g变得无法到达. 这是因为该算法中每个节点的距离矢量是基于临近节点的距离矢量以及与临近节点的距离进行更新，每个节点没有全局的信息，只有局域的信息，因此，在g节点不可达的时候，其余节点会根据已有的局域信息来更新其距离矢量与下一步矢量，使错误的信息在节点间不断更新迭代，而无法发现存在的无限循环问题。
+\end{enumerate}
+\subsection{OSPF协议与LS算法}
+运行实验文件，观察Matlab命令行输出和生成的图片。观察并记录，链路状态协议下链路状态的泛洪过程。记录生成的图片中，“viewNode”路由节点的最小生成树随链路状态传播而变化的情况，结合Dijkstra算法，给出解释。\par
+选择节点7, 记录如下:\par
+完成第一次泛洪迭代，MST=
+\begin{equation}
+    \begin{bmatrix}
+        0  &  0  &  0  &  0  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  0  &  5  &  0 \\
+        0  &  0  &  0  &  0  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  0  &  2  &  0 \\
+        0  &  0  &  5  &  0  &  2  &  0  &  1 \\
+        0  &  0  &  0  &  0  &  0  &  1  &  0 \\   
+    \end{bmatrix}
+\end{equation}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.2]{pics/LS_1.jpg}
+    \caption{第一次泛洪后的最小生成树}
+\end{figure}
+\par
+完成第二次泛洪迭代，MST=
+\begin{equation}
+    \begin{bmatrix}
+        0  &  0  &  5  &  0  &  0  &  0  &  0 \\
+        0  &  0  &  3  &  0  &  0  &  0  &  0 \\
+        5  &  3  &  0  &  0  &  1  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  1  &  0  &  0 \\
+        0  &  0  &  1  &  1  &  0  &  2  &  0 \\
+        0  &  0  &  0  &  0  &  2  &  0  &  1 \\
+        0  &  0  &  0  &  0  &  0  &  1  &  0 \\   
+    \end{bmatrix}
+\end{equation}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.2]{pics/LS_2.jpg}
+    \caption{第二次泛洪后的最小生成树}
+\end{figure}
+\par
+完成第三次泛洪迭代，MST=
+\begin{equation}
+    \begin{bmatrix}
+        0  &  0  &  0  &  1  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  2  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  1  &  0  &  0 \\
+        1  &  2  &  0  &  0  &  1  &  0  &  0 \\
+        0  &  0  &  1  &  1  &  0  &  2  &  0 \\
+        0  &  0  &  0  &  0  &  2  &  0  &  1 \\
+        0  &  0  &  0  &  0  &  0  &  1  &  0 \\   
+    \end{bmatrix}
+\end{equation}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.2]{pics/LS_3.jpg}
+    \caption{第三次泛洪后的最小生成树}
+\end{figure}
+\par
+完成第四次泛洪迭代，MST=
+\begin{equation}
+    \begin{bmatrix}
+        0  &  0  &  0  &  1  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  2  &  0  &  0  &  0 \\
+        0  &  0  &  0  &  0  &  1  &  0  &  0 \\
+        1  &  2  &  0  &  0  &  1  &  0  &  0 \\
+        0  &  0  &  1  &  1  &  0  &  2  &  0 \\
+        0  &  0  &  0  &  0  &  2  &  0  &  1 \\
+        0  &  0  &  0  &  0  &  0  &  1  &  0 \\   
+    \end{bmatrix}
+\end{equation}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.2]{pics/LS_4.jpg}
+    \caption{第四次泛洪后的最小生成树}
+\end{figure}\par
+在 viewNode = 7 的实验中，节点7的最小生成树随着链路状态（LSA）的泛洪传播而逐步建立。初始阶段，节点7仅知道其直连邻居的链路状态，其计算出的最小生成树只包含直接相连的节点。随着泛洪的进行，其他节点的链路状态信息通过邻居逐跳传播到节点7，其链路状态数据库逐渐完善。每收到一轮新的链路状态信息，节点7都基于当前完整的全局网络拓扑视图，重新运行Dijkstra算法，计算出以自身为根到所有其他节点的最短路径树（SPT）。当所有节点的LSA都传播到全网后，节点7的SPT不再变化，路由收敛，此时生成的树是基于全网链路状态的最优路径集合。整个过程展示了OSPF中链路状态泛洪与Dijkstra算法结合，使每个节点能独立计算出无环、一致的最短路径。
+
+\section{实验总结、体会和建议}
+通过本次实验，我理解了距离矢量算法和链路状态算法在路由协议中的核心原理与实现差异。距离矢量算法通过邻居间迭代交换距离信息逐步收敛，但存在计数到无穷问题，收敛较慢。而链路状态算法通过全网泛洪链路状态通告，使每个节点获得全局拓扑后独立运行Dijkstra算法计算最短路径，收敛更快且路径更优。实验让我直观体会到网络拓扑结构对协议性能的影响，加深了对路由协议设计权衡的理解。
+\end{document}
