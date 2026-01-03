@@ -1,0 +1,136 @@
+% Homework template for Inference and Information
+% UPDATE: September 26, 2017 by Xiangxiang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{siunitx}
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不显示了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+% \usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage{color}
+\usepackage{iidef}
+\newif\ifans\anstrue
+\newcommand{\myspace}[1]{\par\vspace{#1\baselineskip}}
+
+\thecourseinstitute{\textnormal{通信与网络}}
+\theterm{确定}
+\begin{document}
+
+
+
+\vspace{3mm}
+\centerline{\textbf{\Large{实验6$\quad$ALOHA实验报告}}}
+
+\setcounter{section}{4}
+
+\section{实验内容}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 设置用户数$N$和单用户的帧到达率$\lambda$，分别绘制出纯ALOHA和Slotted ALOHA的理论计算的$\rho-G$曲线和在上述两种帧到达过程设置下的仿真$\rho-G$曲线(设置2下先不修正$\lambda$)。观察结果，并解释仿真结果和理论结果有差距的原因。\par
+    设置$N=1000$，$\lambda\in[0.1,5]$，绘制曲线如图 \ref{fig:1}和图 \ref{fig:2}.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/a1.jpg}
+        \caption{ALOHA理论计算与仿真结果曲线}
+        \label{fig:1}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/sa1.jpg}
+        \caption{时隙ALOHA理论计算与仿真结果曲线}
+        \label{fig:2}
+    \end{figure}
+    \item 在1的绘图结果的基础上多绘制一条仿真$\rho-G$曲线：在帧到达过程设置2下修正使之更接近于真实的到达率，观察结果。代码中给出了一种修正方法，解释它的原理。\par
+    仿真曲线如图 \ref{fig:1}和图 \ref{fig:2}.\par
+    修正的原理：帧到达时间的平均间隔为$\Delta t=\frac{1}{\lambda}+T_{fr}$，则真实的到达率约为$\frac{1}{\Delta t}=\frac{\lambda}{1+\lambda T_{fr}}$.
+    \item 改变用户数$N$，重做2，观察总结$N$对仿真结果的影响，并解释。\par
+    仿真结果见图 \ref{fig:3}至图 \ref{fig:8}.\par
+    可以发现，在$N$取较大值时，三个图线基本完全重合，因为此时(在绘图区域)有$T_{fr}\ll \frac{1}{\lambda}$，附加的$T_{tr}$间隔对仿真结果基本不存在影响。随着N减小，$G$较大时$T_{fr}$与$\frac{1}{\lambda}$更加接近，此时设置2中附加的$T_{fr}$对实验结果的影响加大，且(在修正之前)可以增大$\rho$值，因此(在图像右侧)三个曲线差距逐渐增大，且设置2修正前的曲线在设置1曲线的上方。对于ALOHA，在N较小时图像右侧的仿真曲线略高于理论值曲线。(有一部分原因可能是仿真时出现的“涨落”)
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/a2.jpg}
+        \caption{N=400, ALOHA}
+        \label{fig:3}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/a3.jpg}
+        \caption{N=200, ALOHA}
+        \label{fig:4}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/a4.jpg}
+        \caption{N=100, ALOHA}
+        \label{fig:5}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/sa2.jpg}
+        \caption{N=400, 时隙ALOHA}
+        \label{fig:6}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/sa3.jpg}
+        \caption{N=200, 时隙ALOHA}
+        \label{fig:7}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.2]{pics/sa4.jpg}
+        \caption{N=100, 时隙ALOHA}
+        \label{fig:8}
+    \end{figure}
+\end{enumerate}
+
+
+
+
+
+\section{实验总结、体会和建议}
+通过本次ALOHA协议仿真实验，我深刻理解了随机接入协议的工作原理和性能特性。实验验证了纯ALOHA和Slotted ALOHA的吞吐量理论公式，并观察到仿真与理论值之间的差异主要源于用户自身帧冲突的假设条件。Slotted ALOHA通过时隙化将脆弱时间减半，显著提升了最大吞吐量，这体现了协议设计中的优化思想。同时，通过$\lambda$校正过程，我认识到实际系统建模时需要考虑各种理想化假设的影响，这对今后分析通信系统性能具有重要启发意义。
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:

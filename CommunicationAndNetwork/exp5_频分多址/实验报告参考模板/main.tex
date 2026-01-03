@@ -1,0 +1,159 @@
+% Homework template for Inference and Information
+% UPDATE: September 26, 2017 by Xiangxiang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{siunitx}
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不显示了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+% \usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage{color}
+\usepackage{iidef}
+\newif\ifans\anstrue
+\newcommand{\myspace}[1]{\par\vspace{#1\baselineskip}}
+
+\thecourseinstitute{\textnormal{通信与网络}}
+\theterm{确定}
+\begin{document}
+
+
+
+\vspace{3mm}
+\centerline{\textbf{\Large{实验5$\quad$频分多址实验报告}}}
+
+\setcounter{section}{4}
+
+\section{实验内容}
+% \subsection{BPSK调制}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 绘制发射信号波形功率谱。根据功率谱密度计算各用户的功率和总功率。\par
+    发射信号功率谱密度如图 \ref{fig:1}所示。
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/1.png}
+        \caption{发射信号波形功率谱}
+        \label{fig:1}
+    \end{figure}\par
+    总功率:$P_{all}=\int_{-\infty}^{\infty}S_xdx=400$。\par
+    各用户功率:\par
+    $P_1=2\times\int_{f_{lc}+\frac{\Delta f_c}{2}}^{f_{lc}-\frac{\Delta f_c}{2}}S_Xdx=91.7304$\par
+    $P_2=2\times\int_{f_{lc}+\frac{3\Delta f_c}{2}}^{f_{lc}+\frac{\Delta f_c}{2}}S_Xdx=98.1359$\par
+    $P_3=2\times\int_{f_{lc}+\frac{5\Delta f_c}{2}}^{f_{lc}+\frac{3\Delta f_c}{2}}S_Xdx=98.6723$\par
+    $P_4=2\times\int_{f_{lc}+\frac{7\Delta f_c}{2}}^{f_{lc}+\frac{5\Delta f_c}{2}}S_Xdx=96.1617$.\newline
+    作为近似，认为各用户的功率都在$f\in[f_c-\frac{\Delta f_c},{f_c+\Delta f_c}]$之间，积分用有限项求和替代。各个用户功率的理论值为100，这种根据功率谱密度计算的方法与理论值存在一定偏差，原因是计算时采取的近似方法带来了误差。
+    \item 在多个噪声功率谱密度下，比较发送信号和接收信号，统计误符号率、误比特率。画出误比特率与$E_b/n_0$之间的关系曲线,并与理论误比特率曲线进行对比。
+    选取几个有代表性的噪声功率谱密度，绘制前四个符号发送波形与接收波形图如图 \ref{fig:2}, 图\ref{fig:3}, 图\ref{fig:4}与图\ref{fig:5}. 发现波形的失真程度随$n_0$增大而增大。
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/2.png}
+        \caption{$n_0=0.1$时发送波形与接收波形}
+        \label{fig:2}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/3.png}
+        \caption{$n_0=0.5$时发送波形与接收波形}
+        \label{fig:3}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/3.png}
+        \caption{$n_0=1$时发送波形与接收波形}
+        \label{fig:4}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/4.png}
+        \caption{$n_0=5$时发送波形与接收波形}
+        \label{fig:5}
+    \end{figure}\par
+    选取几个有代表性的$n_0$，统计相应条件下的误比特率，并计算相应理论值，如表 \ref{tab:1}.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            $n_0$ & 0.1 & 0.5 & 1 & 5 \\
+            \hline
+            $\frac{E_b}{n_0}$ & 10 & 2 & 1 & 0.2 \\
+            \hline
+            用户1BER & $7\times10^{-6}$ & $0.0232$ & $0.0789$ & $0.2638$ \\
+            \hline
+            用户2BER & $7\times10^{-6}$ & $0.0230$ & $0.0800$ & $0.2665$ \\
+            \hline
+            用户3BER & $2\times10^{-6}$ & $0.0232$ & $0.0792$ & $0.2631$ \\
+            \hline
+            用户4BER & $4\times10^{-6}$ & $0.0231$ & $0.0791$ & $0.2638$ \\
+            \hline
+            理论值 & $3.8721\times10^{-6}$ & $0.0228$ & $0.0786$ & $0.2635$ \\
+            \hline
+        \end{tabular}
+        \label{tab:1}
+    \end{table}\par
+    误比特率与$E_b/n_0$之间的关系曲线见图 \ref{fig:6}. 可以看出实际误比特率与理论值基本上相差极小，说明频分多址没有引入附加的误码率。
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.25]{pics/6.png}
+        \caption{误比特率与$E_b/n_0$之间的关系曲线}
+        \label{fig:6}
+    \end{figure}
+
+\end{enumerate}
+
+
+
+
+
+\section{选做题}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item 重复必做实验内容的(1)-(2)
+    \item 对于该选做题中的现象进行分析，并尝试从理论上给出解释。
+\end{enumerate}
+
+\section{实验总结、体会和建议}
+本次实验通过MATLAB仿真了FDMA系统中的BPSK调制与解调过程，观察了多载波传输的信号特性，统计了误比特率并与理论值进行了对比分析。实验还绘制了发射信号的功率谱密度图像，进一步理解了频分多址的工作机制与正交载波在系统中的重要性。通过本实验，我们巩固了通信原理中多址接入、功率谱等基础概念，提升了仿真与分析能力。
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:
